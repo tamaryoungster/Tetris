@@ -53,11 +53,6 @@ def main():
                 env.select_falling_piece(state) #אתחול המשתנים
                 env.add_piece(state) # הוספת החלק החדש ללוח
                 env.clear_rows(state) # מוחק שורות אם צריך  
-           
-        # if env.is_collision(state, falling_piece=state.falling_piece, dRow=1): #אם הגיע עד ללמטה (תהיה התנגשות אם ירד עוד 1)
-        #     env.clear_rows(state) # מוחק שורות אם צריך
-        #     env.select_falling_piece(state) #אתחול המשתנים
-        #     env.add_piece(state) # הוספת החלק החדש ללוח
 
         if env.reached_top(state): # אם חלק "נתקע" למעלה
             game_over = pygame.mixer.Sound('sounds/game_over.mp3') # ניגון צליל
