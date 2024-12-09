@@ -50,9 +50,10 @@ def main():
             if not env.is_collision(state, falling_piece=state.falling_piece, dRow=1):
                 env.down_piece(state)    # יורד שורה
             else:
+                env.clear_rows(state) # מוחק שורות אם צריך  
                 env.select_falling_piece(state) #אתחול המשתנים
                 env.add_piece(state) # הוספת החלק החדש ללוח
-                env.clear_rows(state) # מוחק שורות אם צריך  
+
 
         if env.reached_top(state): # אם חלק "נתקע" למעלה
             game_over = pygame.mixer.Sound('sounds/game_over.mp3') # ניגון צליל
@@ -75,6 +76,8 @@ def main():
                 waiting = False
         action = player.get_end_Action(events)
         if action == 6: # אם השחקן בוחר להתחיל משחק חדש
+            if player != HumanAgent:
+                pygame.time.wait(1000)
             state.__init__() # אתחול ה state
             main() # חזרה לתחילת ה main
 

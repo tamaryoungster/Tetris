@@ -4,7 +4,7 @@ import math
 from DQN import DQN
 from State import *
 
-S = State()
+# S = State()
 
 
 epsilon_start = 1

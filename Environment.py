@@ -31,8 +31,8 @@ class Environment():
     def add_piece(self, state): # הוספת החלק ללוח  
         row, col, piece = state.falling_piece # מוצא את מיקום וצורת החלק
         rows, cols = piece.shape # מוצא את אורך ורוחב החלק
-        if row + rows <= ROWS:
-            state.board[row:row+rows, col:col+cols] += piece # מוסיף את החלק במקום המתאים על הלוח
+        # if row + rows <= ROWS:
+        state.board[row:row+rows, col:col+cols] += piece # מוסיף את החלק במקום המתאים על הלוח
 
     def del_piece(self, state): # מחיקת חלק מהלוח
         row, col, piece = state.falling_piece #מוצא את מיקום וצורת החלק
