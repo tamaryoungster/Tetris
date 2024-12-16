@@ -4,9 +4,6 @@ import math
 from DQN import DQN
 from State import *
 
-# S = State()
-
-
 epsilon_start = 1
 epsilon_final = 0.01
 epsilon_decay = 5000

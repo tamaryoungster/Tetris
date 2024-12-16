@@ -44,25 +44,3 @@ class State:
 
         tensor = torch.cat((tensor, tensor1, tensor2, tensor3))
         return tensor
-    
-
-
-
-        # array = self.board.reshape(-1)
-        # tensor = torch.tensor(array, dtype=torch.float32, device=device)
-
-        # # array1 = self.falling_piece.reshape(-1)
-        # array1 = self.falling_piece
-        # tensor1 = torch.tensor(array1, dtype=torch.float32, device=device)
-        # tensor = torch.cat(tensor, tensor1)
-
-        # # array2 = self.next_piece.reshape(-1)
-        # array2 = self.next_piece
-        # tensor2 = torch.tensor(array2, dtype=torch.float32, device=device)
-        # tensor = torch.cat(tensor, tensor2)
-
-        # # array3 = self.fall_speed.reshape(-1)
-        # array3 = self.fall_speed
-        # tensor3 = torch.tensor(array3, dtype=torch.float32, device=device)
-        # tensor = torch.cat(tensor, tensor3)
-        # return tensor

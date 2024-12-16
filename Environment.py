@@ -5,6 +5,8 @@ from State import *
 import random
 state = State()
 
+added_score = 0
+
 class Environment():
     def __init__(self, state=None):
         self.state:State = state
@@ -122,9 +124,23 @@ class Environment():
     def update_score(self, state, num): # עדכון הניקוד
         if num == 1:
             state.score += 40
+            added_score += 40
         elif num == 2:
             state.score += 100
+            added_score += 100
         elif num == 3:
             state.score += 300
+            added_score += 300
         elif num == 4:
             state.score += 1200
+            added_score += 1200
+        
+
+    def reward(self, state):
+        reward = added_score
+        added_score = 0
+
+        if self.reached_top(state):
+            reward = -2000
+        
+        return reward
