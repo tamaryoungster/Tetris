@@ -1,0 +1,16 @@
+{"time":"2024-12-23T09:31:30.4089714+02:00","level":"INFO","msg":"using version","core version":"0.19.1"}
+{"time":"2024-12-23T09:31:30.4089714+02:00","level":"INFO","msg":"created symlink","path":"C:\\Users\\user\\Downloads\\Tetris\\wandb\\run-20241223_093130-Tetris1\\logs\\debug-core.log"}
+{"time":"2024-12-23T09:31:30.5163833+02:00","level":"INFO","msg":"created new stream","id":"Tetris1"}
+{"time":"2024-12-23T09:31:30.5164872+02:00","level":"INFO","msg":"stream: started","id":"Tetris1"}
+{"time":"2024-12-23T09:31:30.5164872+02:00","level":"INFO","msg":"handler: started","stream_id":"Tetris1"}
+{"time":"2024-12-23T09:31:30.5164872+02:00","level":"INFO","msg":"writer: Do: started","stream_id":"Tetris1"}
+{"time":"2024-12-23T09:31:30.5169946+02:00","level":"INFO","msg":"sender: started","stream_id":"Tetris1"}
+{"time":"2024-12-23T09:31:30.8393514+02:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-12-23T09:31:30.8852203+02:00","level":"INFO","msg":"stream: closing","id":"Tetris1"}
+{"time":"2024-12-23T09:31:30.8852203+02:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-12-23T09:31:30.8859896+02:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-12-23T09:31:32.1631145+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-12-23T09:31:32.4341279+02:00","level":"INFO","msg":"handler: closed","stream_id":"Tetris1"}
+{"time":"2024-12-23T09:31:32.4341279+02:00","level":"INFO","msg":"writer: Close: closed","stream_id":"Tetris1"}
+{"time":"2024-12-23T09:31:32.4341279+02:00","level":"INFO","msg":"sender: closed","stream_id":"Tetris1"}
+{"time":"2024-12-23T09:31:32.4347224+02:00","level":"INFO","msg":"stream: closed","id":"Tetris1"}

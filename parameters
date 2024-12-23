@@ -1,0 +1,15 @@
+1
+epsilon_start = 1
+epsilon_final = 0.01
+epsilon_decay = 5000
+input_size = 220 # board (10 * 20) + falling piece (1 + 1 + 4 * 4) + fall_speed (1) + next_piece (1) = 220
+layer1 = 128
+layer2 = 64
+output_size = 4 # Q(state)-> 4 values of stay, left, right, rotate
+gamma = 0.99
+epochs = 50000
+C = 300
+batch = 64
+learning_rate = 0.1
+path = "Data\DQN_PARAM_1.pth"
+replay_path = "Data\Replay_1.pth"

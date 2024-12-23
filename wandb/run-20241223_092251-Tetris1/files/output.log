@@ -1,0 +1,8 @@
+0
+Traceback (most recent call last):
+  File "c:\Users\user\Downloads\Tetris\Trainer.py", line 81, in <module>
+    main()
+  File "c:\Users\user\Downloads\Tetris\Trainer.py", line 49, in main
+    next_state, reward = env.next_state(state, action)
+                         ^^^^^^^^^^^^^^
+AttributeError: 'Environment' object has no attribute 'next_state'

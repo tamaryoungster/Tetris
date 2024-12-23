@@ -1,0 +1,14 @@
+0
+Traceback (most recent call last):
+  File "c:\Users\user\Downloads\Tetris\Trainer.py", line 86, in <module>
+    main()
+  File "c:\Users\user\Downloads\Tetris\Trainer.py", line 51, in main
+    next_state, reward = env.next_state(state, action, step)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\user\Downloads\Tetris\Environment.py", line 164, in next_state
+    return state, self.reward(state)
+                  ^^^^^^^^^^^^^^^^^^
+  File "c:\Users\user\Downloads\Tetris\Environment.py", line 140, in reward
+    reward = added_score
+             ^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'added_score' where it is not associated with a value

@@ -15,9 +15,9 @@ state = State()
 env = Environment(state=state)
 dqn = DQN_Agent(env=env)
 
-player = HumanAgent(env)
+# player = HumanAgent(env)
 #player = RandomAgent(env)
-# player = dqn
+player = dqn
 
 FPS = 60
 
@@ -32,6 +32,7 @@ def main():
         step += 1
         events = pygame.event.get()
         for event in events:
+            pygame.event.pump()
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
@@ -44,7 +45,6 @@ def main():
         action = player.get_Action(state, events, step) # מקבל את הפעולה שנבחרה
         
         if action: # אם היא חוקית
-            # if not env.no_move(state, action):
             env.move(state, action) # מזיז את החלק
 
         if step % state.fall_speed==0: # אם עבר מספיק זמן

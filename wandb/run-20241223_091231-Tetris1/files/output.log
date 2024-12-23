@@ -1,0 +1,17 @@
+0
+Traceback (most recent call last):
+  File "c:\Users\user\Downloads\Tetris\Trainer.py", line 81, in <module>
+    main()
+  File "c:\Users\user\Downloads\Tetris\Trainer.py", line 47, in main
+    action = player.get_Action(state, epoch=epoch)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\user\Downloads\Tetris\DQN_Agent.py", line 26, in get_Action
+    state = state.toTensor()
+            ^^^^^^^^^^^^^^^^
+  File "c:\Users\user\Downloads\Tetris\State.py", line 39, in toTensor
+    tensor1 = self.falling_piece_to_tensor()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\user\Downloads\Tetris\State.py", line 29, in falling_piece_to_tensor
+    row, col, piece = self.falling_piece
+    ^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable NoneType object

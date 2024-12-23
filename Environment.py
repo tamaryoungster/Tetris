@@ -5,9 +5,12 @@ from State import *
 import random
 state = State()
 
-added_score = 0
 
 class Environment():
+
+    added_score = 0
+
+
     def __init__(self, state=None):
         self.state:State = state
 
@@ -124,23 +127,44 @@ class Environment():
     def update_score(self, state, num): # עדכון הניקוד
         if num == 1:
             state.score += 40
-            added_score += 40
+            self.added_score += 40
         elif num == 2:
             state.score += 100
-            added_score += 100
+            self.added_score += 100
         elif num == 3:
             state.score += 300
-            added_score += 300
+            self.added_score += 300
         elif num == 4:
             state.score += 1200
-            added_score += 1200
+            self.added_score += 1200
         
 
     def reward(self, state):
-        reward = added_score
-        added_score = 0
+        reward = self.added_score
+        self.added_score = 0
 
         if self.reached_top(state):
             reward = -2000
         
         return reward
+    
+    def newState(self):
+        state = State()
+        self.select_falling_piece(state) # בוחר חלק ראשון
+        self.add_piece(state)
+        return state
+    
+    def next_state(self, state, action, step):
+        if action: # אם היא חוקית
+            self.move(state, action) # מזיז את החלק
+        if step % state.fall_speed==0: # אם עבר מספיק זמן
+            if not self.is_collision(state, falling_piece=state.falling_piece, dRow=1):
+                self.down_piece(state)    # יורד שורה
+            else:
+                self.clear_rows(state) # מוחק שורות אם צריך  
+                self.select_falling_piece(state) #אתחול המשתנים
+                self.add_piece(state)
+        return state, self.reward(state)
+
+        
+
