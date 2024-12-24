@@ -30,6 +30,7 @@ def main():
     run = True
     while run:
         step += 1
+        
         events = pygame.event.get()
         for event in events:
             pygame.event.pump()

@@ -1,8 +1,0 @@
-0
-Traceback (most recent call last):
-  File "c:\Users\user\Downloads\Tetris\Trainer.py", line 86, in <module>
-    main()
-  File "c:\Users\user\Downloads\Tetris\Trainer.py", line 51, in main
-    next_state, reward = env.next_state(state, action, step)
-    ^^^^^^^^^^^^^^^^^^
-TypeError: cannot unpack non-iterable NoneType object

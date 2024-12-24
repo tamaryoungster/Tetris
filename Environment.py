@@ -8,11 +8,10 @@ state = State()
 
 class Environment():
 
-    added_score = 0
-
-
     def __init__(self, state=None):
         self.state:State = state
+        self.train = True
+        self.added_score = 0
 
     def pieces(self):
         pieces = {
@@ -103,7 +102,7 @@ class Environment():
     def reached_top(self, state): # בודק אם חלק הגיע עד למעלה
         row, col, piece = state.falling_piece
         if self.is_collision(state, falling_piece=state.falling_piece, dRow=1) and row == 0: # אם הוא נקתע וגם נמצא בשורה העליונה
-            print(state.score) # מדפיס את הניקוד
+            # print(state.score) # מדפיס את הניקוד
             return True # מחזיר אמת - הגיע עד למעלה
         return False
     
@@ -120,8 +119,9 @@ class Environment():
         
         if len(full_rows) > 0: # אם יש לםחות שורה מלאה אחת
             self.update_score(state, len(full_rows)) # עדכון הניקוד
-            line_clear = pygame.mixer.Sound('sounds/line_clear.mp3') # ניגון צליל
-            line_clear.play()
+            if not self.train:
+                line_clear = pygame.mixer.Sound('sounds/line_clear.mp3') # ניגון צליל
+                line_clear.play()
 
 
     def update_score(self, state, num): # עדכון הניקוד
@@ -140,11 +140,11 @@ class Environment():
         
 
     def reward(self, state):
-        reward = self.added_score
+        reward = self.added_score / 100
         self.added_score = 0
 
         if self.reached_top(state):
-            reward = -2000
+            reward -= 20
         
         return reward
     
@@ -154,13 +154,12 @@ class Environment():
         self.add_piece(state)
         return state
     
-    def next_state(self, state, action, step):
+    def next_state(self, state, action):
         if action: # אם היא חוקית
             self.move(state, action) # מזיז את החלק
-        if step % state.fall_speed==0: # אם עבר מספיק זמן
-            if not self.is_collision(state, falling_piece=state.falling_piece, dRow=1):
+        if not self.is_collision(state, falling_piece=state.falling_piece, dRow=1):
                 self.down_piece(state)    # יורד שורה
-            else:
+        else:
                 self.clear_rows(state) # מוחק שורות אם צריך  
                 self.select_falling_piece(state) #אתחול המשתנים
                 self.add_piece(state)

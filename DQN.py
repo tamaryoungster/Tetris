@@ -43,5 +43,6 @@ class DQN (nn.Module):
     def copy (self):
         return copy.deepcopy(self)
 
+   
     def __call__(self, states):
         return self.forward(states)

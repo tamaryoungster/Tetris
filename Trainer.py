@@ -13,18 +13,18 @@ learning_rate = 0.1
 path = "Data\DQN_PARAM_1.pth"
 replay_path = "Data\Replay_1.pth"
 
-wandb.init(
-    project = "Tetris",
-    id = "Tetris1",
+# wandb.init(
+#     project = "Tetris",
+#     id = "Tetris1",
 
-    config={
-        "name": "Tetris1",
-        "learning_rate": learning_rate,
-        "epochs": epochs,
-        "batch": batch,
-        "C": C,
-    }
-)
+#     config={
+#         "name": "Tetris1",
+#         "learning_rate": learning_rate,
+#         "epochs": epochs,
+#         "batch": batch,
+#         "C": C,
+#     }
+# )
 
 
 def main ():
@@ -32,52 +32,50 @@ def main ():
     env = Environment(state=state)
     player = DQN_Agent(env=env, train=True)
     player_hat = DQN_Agent(env=env,train=False)
-    Q = player.DQN
-    Q_hat :DQN = Q.copy()
-    player_hat.DQN = Q_hat
+    Q = player.Q
+    player_hat.DQN = player.DQN.copy()
+    Q_hat = player_hat.Q
     
     replay = ReplayBuffer()
-    optim = torch.optim.Adam(Q.parameters(), lr=learning_rate)
+    optim = torch.optim.Adam(player.DQN.parameters(), lr=learning_rate)
 
-    step = 0
-
+    loss = 0
     for epoch in range(epochs):
-        print (epoch, end="\r")
         state = env.newState()
         done = False
+        moves = 0    
         while not done:
             action = player.get_Action(state, epoch=epoch)
-            
-            next_state, reward = env.next_state(state, action, step)
+            moves += 1
+            print(f'epoch: {epoch}   moves: {moves}', end="\r")
+            next_state, reward = env.next_state(state, action)
             done = env.reached_top(next_state)
 
             replay.push(state, action, reward, next_state, done)
             state = next_state  # env.move
 
-            if epoch < batch:
+            if len(replay) < 500:
                 continue
             states, actions, rewards, next_states, dones = replay.sample(batch)
             Q_values = Q(states, actions)
-            next_actions = player_hat.get_actions(next_states, dones) 
+            next_actions, Q_hat_Values = player_hat.get_Actions_Values(next_states)
             with torch.no_grad():
                 Q_hat_Values = Q_hat(next_states, next_actions)
             
-            loss = Q.loss(Q_values, rewards, Q_hat_Values, dones)
+            loss = player.DQN.loss(Q_values, rewards, Q_hat_Values, dones)
             loss.backward()
             optim.step()
             optim.zero_grad()
 
-            step += 1
 
         if epoch % C == 0:
-            Q_hat.load_state_dict(Q.state_dict())
+            player_hat.DQN.load_state_dict(player.DQN.state_dict())
 
-        if epochs%100 == 0:
-            player.save_param(path)
-            print(epoch, end="\r")
-            wandb.log({"score": env.score})
+        if epoch!=0 and epoch%1 == 0:
+            # player.save_param(path)
+            # wandb.log({"reward": env.reward(state)})
             
-            print (f'epoch: {epoch} loss: {loss:.7f}  score: {env.score}')
+            print (f'epoch: {epoch} moves: {moves} loss: {loss:.7f}  reward: {env.reward(state)}')
 
     player.save_param(path)
     torch.save(replay, replay_path)

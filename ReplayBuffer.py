@@ -13,7 +13,7 @@ class ReplayBuffer:
             self.buffer = deque(maxlen=capacity)
 
     def push (self, state , action, reward, next_state, done):
-        self.buffer.append((state, action, reward, next_state, done))
+        self.buffer.append((state.toTensor(), torch.tensor(action, dtype=torch.float32), torch.tensor(reward, dtype=torch.float32), next_state.toTensor(), torch.tensor(done, dtype=int)))
     
     def sample (self, batch_size):
         if (batch_size > self.__len__()):

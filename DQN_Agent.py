@@ -66,6 +66,12 @@ class DQN_Agent:
     def __call__(self, events= None, state=None):
         return self.get_Action(state)
     
+    def Q (self, states, actions):
+        Q_values = self.DQN(states) 
+        rows = torch.arange(Q_values.shape[0]).reshape(-1,1)
+        cols = actions.reshape(-1,1).to(torch.int)
+        return Q_values[rows, cols]
+
     def get_end_Action(self, events=None):
         action = 6
         return action
