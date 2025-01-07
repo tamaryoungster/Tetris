@@ -11,6 +11,7 @@ class State:
             self.board = self.init_board()
         self.end_of_game = False
         self.score = 0
+        self.reward = 0
         self.FALL_SPEED = 20
         self.fall_speed = self.FALL_SPEED
         self.falling_piece = None #(row, col, piece)

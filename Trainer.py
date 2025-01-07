@@ -4,7 +4,7 @@ from Environment import *
 from ReplayBuffer import ReplayBuffer
 from State import State
 import torch 
-import wandb
+# import wandb
 
 epochs = 50000
 C = 30
@@ -75,7 +75,7 @@ def main ():
             # player.save_param(path)
             # wandb.log({"reward": env.reward(state)})
             
-            print (f'epoch: {epoch} moves: {moves} loss: {loss:.7f}  reward: {env.reward(state)}')
+            print (f'epoch: {epoch} moves: {moves} loss: {loss:.7f}  reward: {reward:.3f}')
 
     player.save_param(path)
     torch.save(replay, replay_path)

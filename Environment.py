@@ -11,7 +11,6 @@ class Environment():
     def __init__(self, state=None):
         self.state:State = state
         self.train = True
-        self.added_score = 0
 
     def pieces(self):
         pieces = {
@@ -33,6 +32,7 @@ class Environment():
         state.next_piece = random.randint(1, 7) # בוחר חלק הבא חדש
 
     def add_piece(self, state): # הוספת החלק ללוח  
+        state.reward += 0.01 ################################
         row, col, piece = state.falling_piece # מוצא את מיקום וצורת החלק
         rows, cols = piece.shape # מוצא את אורך ורוחב החלק
         # if row + rows <= ROWS:
@@ -88,6 +88,8 @@ class Environment():
     def is_collision(self, state, falling_piece, dRow = 0, dCol = 0): # בודק אם תהיה התנגשות
         row, col, piece = falling_piece # מציאת מיקום וצורת החלק
         rows, cols = piece.shape # מציאת אורך ורוחב החלק
+        if row + rows + dRow > ROWS:
+            state.reward += 0.02 ######################################
         if row + rows + dRow > ROWS or col + cols + dCol > COLS or col + dCol < 0: # אם יגיע לרצפה או לאחד הצדדים 
             return True
         # check if will collide
@@ -117,7 +119,7 @@ class Environment():
             state.board[1:i+1] = state.board[0:i] # הורדת כל השורות בלוח עד השורה המלאה ב1
             state.board[0] = 0 # שם שורה ריקה חדשה למעלה
         
-        if len(full_rows) > 0: # אם יש לםחות שורה מלאה אחת
+        if len(full_rows) > 0: # אם יש לפחות שורה מלאה אחת
             self.update_score(state, len(full_rows)) # עדכון הניקוד
             if not self.train:
                 line_clear = pygame.mixer.Sound('sounds/line_clear.mp3') # ניגון צליל
@@ -127,26 +129,26 @@ class Environment():
     def update_score(self, state, num): # עדכון הניקוד
         if num == 1:
             state.score += 40
-            self.added_score += 40
+            state.reward += 0.04
         elif num == 2:
             state.score += 100
-            self.added_score += 100
+            state.reward += 1
         elif num == 3:
             state.score += 300
-            self.added_score += 300
+            state.reward += 3
         elif num == 4:
             state.score += 1200
-            self.added_score += 1200
+            state.reward += 12
         
 
     def reward(self, state):
-        reward = self.added_score / 100
-        self.added_score = 0
-
         if self.reached_top(state):
-            reward -= 20
-        
-        return reward
+            state.reward -= 5
+
+        r = state.reward
+        # state.reward = 0
+
+        return r
     
     def newState(self):
         state = State()
@@ -159,6 +161,7 @@ class Environment():
             self.move(state, action) # מזיז את החלק
         if not self.is_collision(state, falling_piece=state.falling_piece, dRow=1):
                 self.down_piece(state)    # יורד שורה
+                state.reward += 0.005 ##########################
         else:
                 self.clear_rows(state) # מוחק שורות אם צריך  
                 self.select_falling_piece(state) #אתחול המשתנים
